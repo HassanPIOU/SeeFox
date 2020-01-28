@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {% block stylesheets %}
+        <link href="/Gn/Gn.css" rel="stylesheet">
+        <link rel="icon" href="{{ "favicon.ico" }}" type="image/x-icon" />
+    {% endblock %}
+    <title>{% block title %}{{ lang('appname') }} Gn{% endblock %}</title>
+</head>
+<body>
+
+
+
+<!-- Transaction Item-->
+<div class="wallet">
+    <div class="overlay">
+        <div class="card-form">
+            <header>
+                <h2>
+                    <div class="type">Module </div><span>Creation</span>
+                </h2>
+                <div class="a close" href="#"></div>
+            </header>
+            <div class="form" rel="{{ link("/gn/module") }}">
+                <div class="moduleresultat" style="display: none">
+                   <div id="resultatcontroller" style="font-size: 18px;padding-left: 25px;"></div>
+                    <br>
+                   <div id="resultatmodel" style="font-size: 18px; padding-left: 25px;"></div>
+                    <br>
+                   <div id="resultatview" style="font-size: 18px;padding-left: 25px;"></div>
+                    <br>
+                    <br>
+                    <div id="resultlastmsg" style="text-align: center;"></div>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="" class="label">Nom du Module</label>
+                        <input id="modulename" type="text" value="" placeholder=""/>
+                        <small id="moduleerror"></small>
+                    </div>
+                </div>
+
+               <p style="display: flex !important;">
+                   <input type="checkbox" checked disabled>
+                   <label for="fruit1">Model</label>
+                   <input type="checkbox" checked disabled>
+                   <label for="fruit2">View</label>
+                   <input type="checkbox"  checked disabled>
+                   <label for="fruit3">Controller</label>
+               </p>
+                <br>
+                <p><b>*</b> <small>En cochant sur <b>table</b>, une table avec le nom du module sera creer</small></p>
+                <p><input type="checkbox" id="table">
+                    <label for="table">Table</label></p>
+            </div>
+            <footer class="footer">
+                <button class="buttons" id="create_module">Creer Module</button>
+            </footer>
+        </div>
+    </div>
+    <div class="cards">
+        <header>
+            <h2>{{ lang("appname") }} : <small style="color: #0a8dd3;">Gn</small></h2>
+        </header>
+        <p style="color: #fff;">Veuillez configurer les informations lié à la base de donnée avant de commencer</p>
+        <div class="content">
+            <div class="card" id="bdd" style="margin-top: 30px;" rel="{{ link("/gn/database") }}" >
+                <div class="number">Database</div>
+                <div class="expiration">Creation de la base de donnée</div>
+            </div>
+            <div class="card" id="migration" >
+                <div class="number">Migration</div>
+                <div class="expiration">Miration de toutes les tables</div>
+            </div>
+            <div class="card" id="module" >
+                <div class="number">Modules</div>
+                <div class="expiration">Creer un Module</div>
+            </div>
+        </div>
+    </div>
+    <img src="/Gn/spinner.svg" alt=""  class="loader">
+    <div class="activity" id="database_content">
+        <header>
+            <span>Base de donné</span>
+        </header>
+        <div class="content">
+            <p style="color: #fff;text-align: center;" id="rslt"></p>
+            <div class="transaction">
+                <div class="icon-type">
+                    <div class="icon #{type}"></div>
+                </div>
+                <div class="description">
+
+                    <div class="info">
+                        <h3>Creer la Base de donnée</h3>  <span></span>
+                    </div>
+                    <div class="price"  id="bdd_create" style="cursor: pointer;">Creer</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="activity" id="migration_content">
+        <header>
+            <span>Migration</span>
+            <button class="button">
+                <span style="font-size: 14px !important;">Migrate</span>
+                <svg viewBox="0 0 15 13">
+                    <polyline points="2 6.5 6 10.5 13 2.5"></polyline>
+                </svg>
+            </button>
+        </header>
+        <div class="content">
+            <p style="color: #fff;">Cliquer sur migrate pour ajouter toutes les tables</p>
+        </div>
+    </div>
+    <div class="activity" id="module_content">
+        <header>
+            <span>Module</span> <a id="add" href="#"></a>
+        </header>
+        <div class="content">
+            {% for module in modules %}
+                <div class="transaction">
+                    <div class="icon-type">
+                        <div class="icon #{type}"></div>
+                    </div>
+                    <div class="description">
+                        <div class="info">
+                            <h3>{{ module.module }}</h3>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script src="/Gn/jquery.min.js"></script>
+<script src="/Gn/Gn.js"></script>
+</body>
+</html>
